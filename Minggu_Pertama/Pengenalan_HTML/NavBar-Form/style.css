@@ -1,22 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+nav {
+    margin-bottom: 3em;
+    top: 0;
+    position: sticky;
+    background-color: aquamarine;
+    height: 8vh;
+    width: 100vw;
+}
+
+.container-main{
+    padding: 0;
+    margin: 0;
+    background-color: #e3e6eb;
+}
+
+.section1{
+    width: 50%;
+}
+
+
+section .section2{
+    margin-left: 6em;
+    width: 60vw;
+}
+
+
 .section1 p {
     font: 1.5em 'Nunito Sans';
+    margin: 1.5em 0;
 }
 
 .card-container h1{
     font: 3em 'Nunito Sans';
 }
-.container-main {
-  width: 50%;
-  margin: auto;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-}
 
 .card-container{
+  margin: auto;
+  width: 70vw;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
   border: .5px solid rgb(243, 236, 236);
   padding: 2em;
 }
 
 .card-container H3{ 
+    margin-left: 2em;
     font: 1.5em 'Nunito Sans';
     font-style: italic;
 }
@@ -34,11 +68,13 @@
 
 
 .icon-container{
-    width: 65%;
+    padding: 20px;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: auto;
+    margin-top: 5em;
+    margin-left: 3em;
 }
 
 
@@ -54,16 +90,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 380px;
-    margin: auto;
+    width: 500px;
+    height: 100%;
+    margin-left: 13em;
     border: 1 solid red;
     border-radius: .5em;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-    overflow: hidden;
+    transition: all .2s ease-in-out; 
 }
 
 .container-card:hover{
-    opacity: 0.85;
+    transform: scale(1.1);
+}
+
+.container-card h2{
+    margin-top: 1.5em;
+    font-size: 3em;
 }
 
 img {
@@ -85,20 +127,28 @@ i .link-download {
     font: 2em 'Nunito Sans';
 }
 
-.section2 {
-    margin: 5em 0;
+.btn-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .btn-primary{
+    background-color: rgb(0, 0, 0);
+    margin: 1.5em 0;
+    padding: 0;
     height: 80px;
     width: 100px;
     border: none;
     border-radius: 1em;
-    color: rgb(23, 27, 27);
-    font-size: 18px;
+    color: rgb(252, 252, 252);
+    font-size: 20px;
     cursor: pointer;
-    padding: .5em;
 
+}
+
+.btn-primary:hover{
+    opacity: 0.7;
 }
 
 .fa-brands:hover{
