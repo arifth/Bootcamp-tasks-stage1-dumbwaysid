@@ -34,21 +34,19 @@
 
 
 .icon-container{
+    width: 65%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 2em 2em;
+    justify-content: space-between;
+    margin: auto;
 }
 
-.fa-brands{
-    height: 1em;
-    width: 1em;
-    margin-right: 3em;
-    border-radius: 100%;
-}
+
 
 .link-download{
     display: inline;
+    margin-left: 1em;
+    cursor: pointer;
 }
 
 .container-card {
@@ -56,11 +54,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
+    max-width: 380px;
     margin: auto;
     border: 1 solid red;
     border-radius: .5em;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    overflow: hidden;
+}
+
+.container-card:hover{
+    opacity: 0.85;
 }
 
 img {
@@ -83,17 +86,18 @@ i .link-download {
 }
 
 .section2 {
-    margin-top: 5em;
+    margin: 5em 0;
 }
 
 .btn-primary{
     height: 4em;
-    width: 10em;
+    width: 6em;
     border: none;
     border-radius: 2em;
     color: rgb(23, 27, 27);
-    font-size: 1em;
+    font-size: 18px;
     cursor: pointer;
+    padding: .5em;
 
 }
 
