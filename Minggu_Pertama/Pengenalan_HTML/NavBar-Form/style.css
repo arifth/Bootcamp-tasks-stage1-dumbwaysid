@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+a{
+    all: unset;
+}
+
 
 nav {
     margin-bottom: 3em;
@@ -189,15 +193,16 @@ nav .left-tab{
     justify-content:space-evenly;
 }
 
-nav .left-tab h2{
+nav .left-tab a{
     font-style: 100;
-    margin: 2em;
+    font-style: none;
+    margin-right: 2em;
     cursor: pointer;
     font: 3em 'Montserrat', sans-serif;
 }
 
 
-nav .left-tab h2:hover{
+nav .left-tab a:hover{
     font-weight: bold;
 }
 
