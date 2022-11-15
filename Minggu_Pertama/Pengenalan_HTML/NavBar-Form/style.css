@@ -193,11 +193,12 @@ nav .left-tab h2{
     font-style: 100;
     margin: 2em;
     cursor: pointer;
+    font: 3em 'Montserrat', sans-serif;
 }
 
 
 nav .left-tab h2:hover{
-    transform: scale(1.1);
+    font-weight: bold;
 }
 
 
