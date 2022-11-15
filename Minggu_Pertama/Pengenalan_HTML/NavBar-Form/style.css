@@ -126,10 +126,14 @@ section .section2{
     border: 1 solid red;
     border-radius: .5em;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-    transition: all .2s ease-in-out; 
+    overflow: hidden;
 }
 
-.container-card:hover{
+.container-card img{
+
+    transition: all .2s ease-in-out; 
+}
+.container-card img:hover{
     transform: scale(1.1);
 }
 
