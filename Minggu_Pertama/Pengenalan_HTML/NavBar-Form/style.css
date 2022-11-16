@@ -202,7 +202,8 @@ nav .left-tab a{
     font-style: none;
     margin-right: 2em;
     cursor: pointer;
-    font: 3em 'Montserrat', sans-serif;
+    font: 2em 'Montserrat', sans-serif;
+    font-weight: 1000;
 }
 
 
