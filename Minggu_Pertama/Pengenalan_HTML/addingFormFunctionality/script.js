@@ -4,16 +4,15 @@
 // send email via mailto:
 
 
-var nama = document.getElementById('name').value 
-var email = document.getElementById('email').value 
-var phone= document.getElementById('phone').value 
-var subject = document.getElementById('subject').value
-var message = document.getElementById('message').value
 
-console.log(message);
-console.log(nama);
 
-function handleSubmit(){
+function handleSubmit(e){
+
+    var nama = document.getElementById('jeneng').value 
+    var email = document.getElementById('email').value 
+    var phone= document.getElementById('phone').value 
+    var subject = document.getElementById('subject').value
+    var message = document.getElementById('message').value
     console.log('tertekan')
     console.log( nama, email, phone, subject, message );
 }
