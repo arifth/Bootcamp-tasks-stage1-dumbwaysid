@@ -29,11 +29,11 @@
         <h1 class="Head-text">Get In Touch </h1>
         <form action="" class="Form">
             <label for="" class="label">Name</label>
-            <input type="text" name="" id="" class="input">
+            <input type="text" name="" id="name" class="input">
             <label for="" class="label">Email</label>
-            <input type="text" name="" id="" class="input">
+            <input type="text" name="" id="email" class="input">
             <label for="" class="label">Phone Number</label>
-            <input type="number" name="" id="" class="input">
+            <input type="number" name="" id="phone" class="input">
             <label for="" class="label">Subject</label>
            <select name="Subject" id="subject" class="input">
             <option value="FullStack">FullStack</option>
@@ -41,11 +41,12 @@
             <option value="BackEnd">BackEnd</option>
            </select>
             <label for="" class="label">Your Message</label>
-            <input type="text" name="" id="" class="input">
-            <button class="btn-submit">
+            <input type="text" name="" id="message" class="input">
+            <button class="btn-submit" type="button" onclick="handleSubmit()">
                 submit
             </button>
         </form>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
