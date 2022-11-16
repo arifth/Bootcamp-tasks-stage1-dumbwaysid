@@ -4,9 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet"> 
     <title>Document</title>
 </head>
 <body>
-    <h1>Hallo from form</h1>
+    <nav class="nav">
+        <div class="left-tab">
+        <div class="logo">
+          <a href="https://arifth.github.io/Bootcamp-tasks-stage1-dumbwaysid/Minggu_Pertama/Pengenalan_HTML/NavBar-Form/index.html">
+            <img src="./fa-icon dmbways.png" class="logo-nav" alt="">
+          </a>
+         </div>
+          <a href="/">Home</a>
+           <a href="myproject.html">My Project</a>
+        </div>
+        <button class="btn-right-tab" onclick="window.location.href='./form.html'">contact me</button>
+
+      </nav>
+    <main class="main">
+        <h1 class="Head-text">Get In Touch </h1>
+        <form action="" class="Form">
+            <label for="" class="label">Name</label>
+            <input type="text" name="" id="" class="input">
+            <label for="" class="label">Email</label>
+            <input type="text" name="" id="" class="input">
+            <label for="" class="label">Phone Number</label>
+            <input type="number" name="" id="" class="input">
+            <label for="" class="label">Subject</label>
+           <select name="Subject" id="subject" class="input">
+            <option value="FullStack">FullStack</option>
+            <option value="FrontEnd">FrontEnd</option>
+            <option value="BackEnd">BackEnd</option>
+           </select>
+            <label for="" class="label">Your Message</label>
+            <input type="text" name="" id="" class="input">
+            <button class="btn-submit">
+                submit
+            </button>
+        </form>
+    </main>
 </body>
 </html>
