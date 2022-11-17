@@ -15,4 +15,15 @@ function handleSubmit(e){
     var message = document.getElementById('message').value
     console.log('tertekan')
     console.log( nama, email, phone, subject, message );
+    
+
+    // declare new HTML node pointing to mail app
+    let link = document.createElement('a')
+    
+
+    // inject it with element from form 
+    link.href = `mailto:${email}?subject=${subject}&body=${message}`
+
+    // simulate clicking href tag 
+    link.click()
 }
