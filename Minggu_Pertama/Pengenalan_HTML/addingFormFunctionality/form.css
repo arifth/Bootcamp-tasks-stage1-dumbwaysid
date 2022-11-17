@@ -39,11 +39,10 @@ form{
 .input{
     padding: 0;
     font-size: 18px;
-    margin-top: 20px;
     background-color: rgb(255, 252, 252);
     border: 0px solid;
     width: 800px;
-    height: 4em;
+    height: 60px;
     margin-bottom: 3em;
     border-radius: .5em;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
