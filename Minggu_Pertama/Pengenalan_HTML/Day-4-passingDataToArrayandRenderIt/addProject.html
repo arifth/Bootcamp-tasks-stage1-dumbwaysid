@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="addProject.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&display=swap" rel="stylesheet">
+    <title>Add My new  Project</title>
+</head>
+<body>
+    <main class="main">
+      <h1 class="header">Add My new project</h1>
+        <form action="" method="POST" class="form-1">
+          <label for="" >Project Name</label>
+          <input type="text" name="" id="name">
+          <div class="date-wrapper">
+            <div style="display:flex;flex-direction:column" class="date">
+             <label for="">Start Date</label>
+             <input type="date" name="" id="input-date" placeholder="Start Date">
+            </div>
+            <div style="display:flex;flex-direction:column" class="date">
+              <label for="">End Date</label>
+              <input type="date" name="" id="input-date">
+          </div>
+            </div>
+          <label for="">Description</label>
+          <input type="text" name="" id="desc">
+          <label for="">Technologies</label>
+          <div class="cb-wrapper">
+            <div class="cb-inside">
+              <input type="checkbox" id="checkbox" name="NodeJS" value="NodeJS">
+              <label for="NodeJS"> NodeJS </label>
+            </div>
+            <div class="cb-inside">
+              <input type="checkbox" id="checkbox" name="NextJS" value="NextJS">
+              <label for="NextJS"> NextJS </label>
+            </div>
+            <div class="cb-inside">
+              <input type="checkbox" id="checkbox" name="ReactJS" value="ReactJS">
+              <label for="ReactJS"> ReactJS </label>
+            </div>
+            <div class="cb-inside">
+              <input type="checkbox" id="checkbox" name="Typescript" value="Typescript">
+              <label for=" Typescript "> Typescript </label>
+            </div>
+          </div>
+          <label for="">Uploda Images </label>
+          <input type="file" name="" id="">
+
+          <button class="btn-form" type="button" onclick="handleForm()">submit</button>
+
+        </form>
+      
+    </main>
+<script src="formhandle.js"></script>    
+    
+</body>
+</html>
