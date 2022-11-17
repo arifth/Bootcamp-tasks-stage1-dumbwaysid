@@ -28,6 +28,7 @@ form{
 }
 
 .label{
+    margin-bottom: 10px;
     width: 800px;
     height: 1em;
     font: 2em poppins;
