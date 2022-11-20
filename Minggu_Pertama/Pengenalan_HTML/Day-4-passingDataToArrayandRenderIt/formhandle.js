@@ -1,22 +1,31 @@
-
-let data = [{
-    name,
-    desc,
-
-}]
+let data =[]
 
 function handleForm(event){
+    let datablog= []
+
+    // use obj desctructuring here 
+    // https://www.freecodecamp.org/news/array-and-object-destructuring-in-javascript/
+    
+    let data = { name: "", start:"", end:"", desc:"", img:"" }
+
     // event.preventDefault
-    var name = document.getElementById('name').value
-    var desc = document.getElementById('desc').value
+    let name = document.getElementById('name').value
+    let start = document.getElementById('startdate').value
+    let end = document.getElementById('enddate').value
+    let desc = document.getElementById('desc').value
+    let img = document.getElementById('input-img').value
 
-    // console.log( name, desc)
+    console.log( name, start, end, desc, img)
 
-    data.push({name:name,desc,desc})
+    let blogData = 
 
-    for(index=0;index<data;data++){
-        console.log(data);
-    }    
+    datablog.push({name , start, end, desc, img})
+
+    console.log(data);
+
+    // for(index=0;index<data;data++){
+    //     console.log(data);
+    // }    
 
 
 }

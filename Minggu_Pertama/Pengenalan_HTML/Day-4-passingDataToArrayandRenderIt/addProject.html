@@ -6,28 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="addProject.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&display=swap" rel="stylesheet">
     <title>Add My new  Project</title>
 </head>
 <body>
+  <nav class="nav">
+    <div class="left-tab">
+    <div class="logo">
+      <a href="/">
+        <img src="./assets/fa-icon dmbways.png" class="logo-nav" alt="">
+      </a>
+     </div>
+      <a href="/">Home</a>
+       <a href="/addProject.html">My Project</a>
+    </div>
+    <button class="btn-right-tab" onclick="window.location.href='./form.html'">contact me</button>
+
+  </nav>
     <main class="main">
       <h1 class="header">Add My new project</h1>
-        <form action="" method="POST" class="form-1">
+        <form action="" method="POST" class="form-1 ">
           <label for="" >Project Name</label>
-          <input type="text" name="" id="name">
+          <input type="text" name="" id="name" class="form-style">
           <div class="date-wrapper">
             <div style="display:flex;flex-direction:column" class="date">
              <label for="">Start Date</label>
-             <input type="date" name="" id="input-date" placeholder="Start Date">
+             <input type="date" name="" class="input-date form-style" id="startdate" placeholder="Start Date">
             </div>
             <div style="display:flex;flex-direction:column" class="date">
               <label for="">End Date</label>
-              <input type="date" name="" id="input-date">
+              <input type="date" name="" class="input-date form-style" id="enddate">
           </div>
             </div>
           <label for="">Description</label>
-          <input type="text" name="" id="desc">
+          <input type="text" class=" form-style" id="desc">
           <label for="">Technologies</label>
           <div class="cb-wrapper">
             <div class="cb-inside">
@@ -47,14 +61,55 @@
               <label for=" Typescript "> Typescript </label>
             </div>
           </div>
-          <label for="">Uploda Images </label>
-          <input type="file" name="" id="">
+          <label for="" class="label-img" id="inputImg">Upload Images </label>
+          <input type="file" name="" id="input-img">
 
           <button class="btn-form" type="button" onclick="handleForm()">submit</button>
 
         </form>
+        
       
     </main>
+    <section class="section2">
+      <header class="header2">
+       <h1>My Project</h1>
+      </header>
+      <div class="cardcont">
+        <div class="img-cont">
+          <img src="./assets/Screen Shot 2022-07-04 at 16.10.37.png" alt="">
+          <h2 class="judul">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, eveniet!
+          </h2>
+          <h3>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+          </h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil deserunt deleniti corrupti eos corporis modi?
+          </p>
+          <div class="icon-cont">
+            <i class="fa-brands fa-node-js fa-4x"></i>
+            <i class="fa-brands fa-react fa-4x"></i>
+            <i class="fa-brands fa-java fa-4x"></i>
+            <i class="fa-solid fa-scroll fa-4x"></i>
+
+          </div>
+          <div class="button-cont">
+            <button class="btn-scnd">delete </button>
+            <button class="btn-scnd">edit</button>
+          </div>
+        </div>
+      </div>
+      <div class="cardcont">
+        <h1>hello notherfucker</h1>
+      </div>
+      <div class="cardcont">
+        <h1>hello notherfucker</h1>
+      </div>
+      <div class="cardcont">
+        <h1>hello notherfucker</h1>
+      </div>
+   </section>
+   <script src="https://kit.fontawesome.com/04085daf6d.js" crossorigin="anonymous"></script>
 <script src="formhandle.js"></script>    
     
 </body>
