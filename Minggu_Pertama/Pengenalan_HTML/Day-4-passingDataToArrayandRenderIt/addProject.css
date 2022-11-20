@@ -74,8 +74,8 @@ label{
 
 #desc{
     display: block;
-    height: 300px;
-    padding: 0;
+    height: 150px;
+    padding: 10px;
     box-shadow: -2px 11px 35px -3px rgba(0,0,0,0.20);
     border: none;
     margin-bottom: 2em;
@@ -155,7 +155,7 @@ input[type=file]::file-selector-button {
 }
 
 .cardcont{
-    padding: 10px;
+    padding: 20px;
     text-overflow:ellipsis;
     display: flex;
     flex-direction: column;

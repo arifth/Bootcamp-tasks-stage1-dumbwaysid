@@ -27,7 +27,7 @@
       </nav>
     <main class="main">
         <h1 class="Head-text">Get In Touch </h1>
-        <form action="" method="POST"  class="Form">
+        <form method="POST"  class="Form" onsubmit="handleForm(event)">
             <label for="" class="label">Name</label>
             <input type="text" name="" id="jeneng" class="input">
             <label for="" class="label">Email</label>
@@ -42,7 +42,7 @@
            </select>
             <label for="" class="label">Your Message</label>
             <input type="text" name="" id="message" class="input">
-            <button class="btn-submit" type="button" onclick="handleSubmit()">
+            <input class="btn-submit" type="button">
                 submit
             </button>
         </form>
