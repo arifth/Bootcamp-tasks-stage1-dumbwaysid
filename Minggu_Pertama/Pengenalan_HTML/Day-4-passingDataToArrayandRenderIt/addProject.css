@@ -48,8 +48,7 @@ label{
     cursor: pointer;
     position: absolute;
     right: 10px;
-    top: 500px;
-    display: none;
+    top: 750px;
 }
 
 #name{
