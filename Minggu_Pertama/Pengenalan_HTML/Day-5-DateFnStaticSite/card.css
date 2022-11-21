@@ -1,0 +1,19 @@
+.hero-cont{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.img-cont{
+    width: 60%;
+
+}
+
+.sub-cont{
+    width: 40%;
+    background-color: red;
+    
+}
