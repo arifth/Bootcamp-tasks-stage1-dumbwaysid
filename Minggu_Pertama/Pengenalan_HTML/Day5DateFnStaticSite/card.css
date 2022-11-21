@@ -1,11 +1,46 @@
-.hero-cont{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+*{
+    font: Poppins;
 }
 
+img{
+    height: 600px;
+    margin-right: 10px;
+}
+
+.hero-cont{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3em;
+}
+
+
+.main-card{
+    padding: 4em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.header{
+    width: 100vw;
+    font-size: 5em;
+    margin: 1em 7em;
+    font: 4em Poppins;
+    font-weight: 1000;
+}
+
+h3{
+    font: 2em Poppins; 
+}
+h4{
+    font: 1.5em Poppins;
+}
 
 .img-cont{
     width: 60%;
@@ -13,7 +48,39 @@
 }
 
 .sub-cont{
-    width: 40%;
-    background-color: red;
+    margin-left: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 35%;
+    /* height: 450px; */
     
+}
+
+.tech{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tech-sub{
+    margin-right: 3em;
+    margin-bottom: 2em;
+}
+
+.fa-brands{
+    margin-right: 10px;
+}
+
+.fa-regular{
+    margin-right:10px ;
+}
+
+.fa-solid{
+    margin-right: 10px;
+}
+
+.paragraph{
+    line-height: 2em;
+    font: 18px Poppins;
 }
