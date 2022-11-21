@@ -3,6 +3,7 @@ let datablog = []
 let cardCtn = ""
 let check = []
 let checkHolder = '' 
+let inputCechk = []
 
 
 function handleForm(e){
@@ -11,6 +12,7 @@ function handleForm(e){
 
     // use obj desctructuring here 
     // https://www.freecodecamp.org/news/array-and-object-destructuring-in-javascript/
+
     
    let data = { name: "", start:"", end:"", desc:"", img:"", checkHolder:"" }
 
@@ -23,7 +25,7 @@ function handleForm(e){
 
     let imgUrl = URL.createObjectURL(img.files[0])
     
-    check.forEach((elem) => {
+    let inputCechk = check.forEach((elem) => {
     //check apakah cheklist di klik 
     if(elem.checked){
       checkHolder +=`<i class="fa-brands fa-${elem.value} fa-4x"></i>`
@@ -31,7 +33,7 @@ function handleForm(e){
     }
     });
    
-  console.log(checkHolder);
+  console.log(inputCechk);
     // console.log( name, start, end, desc, img)
 
    //assigning data to placeholder obj 
@@ -41,7 +43,7 @@ function handleForm(e){
         end: end,
         desc: desc,
         imgUrl: imgUrl,
-        checkHolder: checkHolder,
+        checkHolder: inputCechk,
     }
 
 
