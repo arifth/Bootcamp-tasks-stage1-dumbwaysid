@@ -12,6 +12,10 @@ a{
     all: unset;
 }
 
+a:hover{
+    cursor: pointer;
+}
+
 
 nav {
     z-index: 999;
