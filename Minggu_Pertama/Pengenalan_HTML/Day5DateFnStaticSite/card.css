@@ -4,7 +4,7 @@
 
 img{
     height: 600px;
-    margin-right: 10px;
+    border-radius: 2em;
 }
 
 .hero-cont{
@@ -48,7 +48,7 @@ h4{
 }
 
 .sub-cont{
-    margin-left: 14px;
+    margin-left: 2em;
     display: flex;
     flex-direction: column;
     gap: 20px;
