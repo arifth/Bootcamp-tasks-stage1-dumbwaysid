@@ -71,7 +71,7 @@ function renderCard(){
     function handleRender(elem,index,array){
         console.log()
       card += `<div class="cardcont" >
-      <a href="/card.html">
+      <a href="https://arifth.github.io/Bootcamp-tasks-stage1-dumbwaysid/Minggu_Pertama/Pengenalan_HTML/Day5DateFnStaticSite/card.html">
         <div class="img-cont">
           <img src="${elem.imgUrl}" alt="">
             <h2 class="judul">
