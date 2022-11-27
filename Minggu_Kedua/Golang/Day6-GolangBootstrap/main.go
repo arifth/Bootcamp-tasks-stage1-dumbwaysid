@@ -31,7 +31,8 @@ func main() {
 	route.PathPrefix("/Public").Handler(http.StripPrefix("public", http.FileServer(http.Dir("./public"))))
 
 	route.HandleFunc("/", home).Methods("GET")
-	route.HandleFunc("/contact", contact)
+	route.HandleFunc("/contact", contact).Methods("GET")
+	route.HandleFunc("/addproject", addProject).Methods("GET")
 	Port := "5000"
 
 	fmt.Print("server running on port" + Port)
@@ -46,7 +47,7 @@ func home(res http.ResponseWriter, req *http.Request) {
 
 	// cek apakah ada error ketika parsing html , jika ada kembalikan error ke console dan return kosong
 	if err != nil {
-		res.Write([]byte("request error cuy:" + err.Error()))
+		res.Write([]byte("request error cuy mas:" + err.Error()))
 		//    kembalikan kosong
 		return
 	}
@@ -62,6 +63,18 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error")
 	}
+
+	tmpt.Execute(w, nil)
+
+}
+
+func addProject(w http.ResponseWriter, r *http.Request) {
+	tmpt, _ := template.ParseFiles("public/projectform.html")
+	w.Header().Set("Content-type:", "text/html")
+	// if err != nil {
+	// 	fmt.Println("error pakk")
+	// 	return
+	// }
 
 	tmpt.Execute(w, nil)
 
