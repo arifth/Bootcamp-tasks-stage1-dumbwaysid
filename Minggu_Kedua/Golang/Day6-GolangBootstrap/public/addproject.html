@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/04085daf6d.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+    <style>
+      .form{
+        display: grid;
+        margin: 3rem 20rem;
+      }
+    </style>
     <title>Document</title>
 </head>
 <body>
     <!-- start of navbar  -->
     <nav class="navbar navbar-expand-lg bg-light position-sticky">
         <div class="container-fluid">
-          <a class="navbar-brand ms-3" href="#">
+          <a class="navbar-brand ms-3" href="/">
             <img src="./index.png"  style="height: 50px;width: 50px;object-fit: contain;"alt="">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +31,57 @@
               </li>
             <ul class="navbar-nav  mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="#">Add Project</a>
+                <a class="nav-link " aria-current="page" href="/addProject">Add Project</a>
               </li>
               
           </div>
         </div>
-       <button class="btn text-light bg-dark me-1" style="width: 150px;" type="submit">Contact me</button>
+       <button class="btn text-light bg-dark me-1" style="width: 150px;" onclick="location.href='/contact'"">Contact me</button>
       </nav>
       <!-- end of navbar -->
+
+      <!-- start of form  -->
+      <form action="" method="POST" class="form-1 ">
+        <label for="" >Project Name</label>
+        <input type="text" name="" id="name" class="form-style">
+        <div class="date-wrapper">
+          <div style="display:flex;flex-direction:column" class="date">
+           <label for="">Start Date</label>
+           <input type="date" name="" class="input-date form-style" id="startdate" placeholder="Start Date">
+          </div>
+          <div style="display:flex;flex-direction:column" class="date">
+            <label for="">End Date</label>
+            <input type="date" name="" class="input-date form-style" id="enddate">
+        </div>
+          </div>
+        <label for="">Description</label>
+        <input type="text" class=" form-style" id="desc">
+        <label for="">Technologies</label>
+        <div class="cb-wrapper">
+          <div class="cb-inside">
+            <input type="checkbox" id="checkbox" name="NodeJS" value="node-js">
+            <label for="NodeJS"> NodeJS </label>
+          </div>
+          <div class="cb-inside">
+            <input type="checkbox" id="checkbox" name="NextJS" value="java">
+            <label for="NextJS"> java </label>
+          </div>
+          <div class="cb-inside">
+            <input type="checkbox" id="checkbox" name="ReactJS" value="react">
+            <label for="ReactJS"> ReactJS </label>
+          </div>
+          <div class="cb-inside">
+            <input type="checkbox" id="checkbox" name="Typescript" value="scroll">
+            <label for=" Typescript "> Typescript </label>
+          </div>
+        </div>
+        <label for="" class="label-img" id="inputImg">Upload Images </label>
+        <input type="file" name="" id="input-img">
+
+        <button class="btn-form" type="button" onclick="handleForm()">submit</button>
+
+      </form> 
+      <!-- end of form -->
  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
