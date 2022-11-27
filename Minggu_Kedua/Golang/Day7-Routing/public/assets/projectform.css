@@ -5,14 +5,17 @@
     font-family: 'Poppins', sans-serif;
 
   }
+
   form{
+    position: relative;
     display:flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 1rem;
     margin: 2rem 20rem;
     box-shadow: -2px 11px 35px -3px rgba(0,0,0,0.20);
     padding: 1.5rem;
     border-radius: 5px;
+    height: 820px;
   }
   label,input{
     /* border: 1px solid red; */
@@ -32,4 +35,32 @@
     font-size: 18px;
     border: .5px solid rgba(0,0,0,0.20);
     box-shadow: -2px 11px 35px -3px rgba(0,0,0,0.20)
+  }
+
+  .cb-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 5rem;
+  }
+
+ .cb-inside{
+    margin-right: 2rem;
+  }
+
+  #input-img{
+    margin-bottom: 1rem;
+  }
+
+
+  .btn-form{
+    height: 3rem;
+    width: 100px;
+    background-color: black;
+    color: white;
+    position: absolute;
+    right:10px ;
+    bottom: 10px;
+    border-radius: 10px;
+    margin-top: 2rem;
   }
