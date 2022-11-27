@@ -10,6 +10,15 @@ import (
 
 // https://github.com/Torao-Law/B42-CH1-ST1---Day-2-Routing
 
+type card struct {
+	project_name string
+	start_date   string
+	end_date     string
+	desc         string
+	// tech         []string
+	img string
+}
+
 func main() {
 
 	// list of endpoints :
@@ -33,6 +42,7 @@ func main() {
 	route.HandleFunc("/", home).Methods("GET")
 	route.HandleFunc("/contact", contact).Methods("GET")
 	route.HandleFunc("/addproject", addProject).Methods("GET")
+	route.HandleFunc("/sendform", sendform).Methods("POST")
 	Port := "5000"
 
 	fmt.Print("server running on port" + Port)
@@ -77,5 +87,29 @@ func addProject(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	tmpt.Execute(w, nil)
+
+}
+
+func sendform(w http.ResponseWriter, r *http.Request) {
+
+	// fmt.Print("hallo form sendform")
+	// parse request form and body,lalu catch error dan return http error 5xx cuy
+	err := r.ParseForm()
+
+	if err != nil {
+		return
+	}
+
+	// mengambil value dari form dengan r.FormValue("<key>")
+
+	// r := r.PostForm.Get("name")
+	//	title := r.PostForm.Get("title")
+	// fmt.Println(name)
+	// project_name string
+	// start_date   string
+	// end_date     string
+	// desc         string
+	// // tech         []string
+	// img string
 
 }
