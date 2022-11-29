@@ -49,11 +49,14 @@ func main() {
 
 	route.PathPrefix("/Public").Handler(http.StripPrefix("public", http.FileServer(http.Dir("./public"))))
 
+	// base route
 	route.HandleFunc("/", home).Methods("GET")
+	// contact page
 	route.HandleFunc("/contact", contact).Methods("GET")
+	// add Course
 	route.HandleFunc("/addproject", addProject).Methods("GET")
+	// api handle form value & redirect to /
 	route.HandleFunc("/sendform", sendform).Methods("POST")
-	route.HandleFunc("/listcards", listcards).Methods("GET")
 	Port := "5000"
 
 	fmt.Print("server running on port" + Port)
@@ -146,38 +149,6 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusMovedPermanently)
 
 	}
-	// taro input user ke variable card
-	// start with capital letter
-
-	// fmt.Println(card)
-	// fmt.Println(card.start_date)
-	// // append kedalam array dengan id sebg indeksnya
-
-	// time1, _ := time.Parse(card.start_date)
-
-	// fmt.Println(time1)
-
-	// fmt.Println(len(cards))
-	// fmt.Println(reflect.TypeOf(cards))
-
-	// redirect ke halaman utama
-
-}
-
-func listcards(w http.ResponseWriter, r *http.Request) {
-	tmpt, err := template.ParseFiles("public/cards.html")
-
-	if err != nil {
-		fmt.Printf("panic: %v\n", err)
-		return
-	}
-	//    parsing date
-
-	dataCards := map[string]interface{}{
-		"Cards": Cards,
-	}
-	// fmt.Println(dataCards)
-	tmpt.Execute(w, dataCards)
 }
 
 func getDuration(start_date string, end_date string) string {
