@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"pengenalan_golang/connection"
 	"strconv"
 	"time"
 
@@ -58,6 +59,9 @@ func main() {
 	// "/addProject"
 	// "/contact"
 	//
+
+	// konnek db dlu baru instantiate route dng mux
+	connection.ConnectDB()
 
 	route := mux.NewRouter()
 
