@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/k0kubun/pp"
+
 	"github.com/gorilla/mux"
 )
 
@@ -32,6 +34,15 @@ var Cards = []Card{
 		Start_date:   "11-10-2022",
 		End_date:     "11-11-2022",
 		Durasi:       "6 Bulan",
+		Desc:         "lorem10",
+		Tech:         [4]string{"nodejs", "java", "react", "ts"},
+		Img:          "",
+	},
+	{
+		Project_name: "Kursus Python sampai tipes ",
+		Start_date:   "1-10-2022",
+		End_date:     "1-12-2022",
+		Durasi:       "3 Bulan",
 		Desc:         "lorem10",
 		Tech:         [4]string{"nodejs", "java", "react", "ts"},
 		Img:          "",
@@ -79,7 +90,7 @@ func main() {
 
 	Port := "5500"
 
-	fmt.Print("server running on port" + Port)
+	fmt.Print("server running on port" + Port + "\n")
 
 	http.ListenAndServe("localhost:"+Port, route)
 
@@ -100,6 +111,8 @@ func home(res http.ResponseWriter, req *http.Request) {
 	response := map[string]interface{}{
 		"Cards": Cards,
 	}
+
+	pp.Print(response)
 
 	// fmt.Println(response)
 
@@ -123,6 +136,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 func addProject(w http.ResponseWriter, r *http.Request) {
 	tmpt, _ := template.ParseFiles("public/projectform.html")
 	w.Header().Set("Content-type:", "text/html")
+
 	// if err != nil {
 	// 	fmt.Println("error pakk")
 	// 	return
@@ -155,7 +169,7 @@ func updatecard(w http.ResponseWriter, r *http.Request) {
 					Tech:         data.Tech,
 					Img:          "",
 				}
-				// notice this
+				// notice this, still unresolve
 				Cards = append(Cards[:index], Cards[index+1:]...)
 			}
 		}
@@ -298,8 +312,3 @@ func formatDate(date string) string {
 	hasil := t.Format("02 January 2006")
 	return hasil
 }
-
-// func handleDuration(start string, end string, r *http.Request) string {
-// 	r.ParseForm()
-// 	start = r.FormValue("start-date")
-// 	end = r.FormValue("end-date")
