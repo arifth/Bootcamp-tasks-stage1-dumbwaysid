@@ -1,0 +1,85 @@
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;800;900&display=swap');
+      *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      main{
+        background:#e3e6eb;
+      } 
+
+      h1{
+        font-weight: 500;
+      }
+
+      header{
+        z-index: 1000;
+        position: sticky;
+        top: 0;
+        left: 0;
+      }
+
+      .cards{
+        border: .9px solid rgba(85, 58, 58, 0.5);
+        border-radius: 1rem;
+        padding: 10px;
+        position: relative;
+      }
+
+      .container{
+        margin-bottom:1em;
+        overflow-y:hidden !important;
+        max-height: 660px;
+        border: .5px solid rgba(231, 217, 217, 0.8);
+        border-radius: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+
+      .img-container{
+        height:300px ;
+        width: 415px;
+        /* border: 1px solid red; */
+      }
+
+      #card-hero {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+     p.card-text{
+      font-weight: 500 !important;
+      font-size: 1.5rem;
+      color: rgb(65, 31, 31)
+     }
+
+     .fa-brands{
+      border-radius: 100%;
+     }
+     
+     h3.card-title{
+
+      margin-top: 10px;
+      font-weight: bold;
+     }
+
+     h3.card-title:hover{
+      cursor: pointer;
+     }
+
+     .btn-cont{
+      align-self: center;
+      position: absolute;
+      bottom: 1rem;
+     }
+     .btn-card:hover{
+      opacity: 0.95;
+      cursor: pointer;
+     }
+     .btn-card{
+      width: 140px;
+      background-color: black;
+     }
+          
