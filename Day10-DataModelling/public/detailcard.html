@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/detailcard.css">
     <link rel="stylesheet" href="/assets/projectform.css">
     <script src="https://kit.fontawesome.com/04085daf6d.js" crossorigin="anonymous"></script>
     <script src="/assets/form.js"></script>
@@ -38,37 +39,36 @@
 
     <main style="padding-top: 2rem;background:#e3e6eb;">
     <!-- start of Card Detail -->
-    <h2>{{.detailCards.Project_name}}</h2>
+    <h1 class="text-center header mb-4 mt-4">{{.detailCards.Project_name}}</h1>
     <div class="main-card">
-        <h1 class="header">Dumbways WebApp</h1>
         <div class="hero-cont">
           <div class="img-cont">
            <img src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" />
           </div>
           <div class="sub-cont">
             <h3>Durasi</h3>
-            <h4><i class="fa-regular fa-calendar fa-2x"></i>{{.detailCards.Durasi}}</h4>
-            <h4> <i class="fa-solid fa-clock-rotate-left fa-2x"></i>1 month</h4>
+            <h4 class="mb-5"><i class="fa-regular fa-calendar fa-2x me-4"></i>{{.detailCards.Start_date}} until {{.detailCards.End_date}}</h4>
+            <h4> <i class="fa-solid fa-clock-rotate-left fa-2x me-4"></i>{{.detailCards.Durasi}}</h4>
             <br>
             <br>
-            <h3>Technologies</h3>
+            <h3 class="mb-4">Technologies</h3>
             <div class="tech">
                 {{if eq (index .detailCards.Tech 0) "nodejs"}}
-                <i class="fa-brands fa-node-js fa-3x"></i>
+                <i class="fa-brands fa-node-js fa-3x me-3 mb-4"></i>
                 {{end}}
                 {{if eq (index .detailCards.Tech 1) "java"}}
-                <i class="fa-brands fa-java fa-3x"></i>
+                <i class="fa-brands fa-java fa-3x me-3 mb-4"></i>
                 {{end}}
                 {{if eq (index .detailCards.Tech 2) "react"}}
-                <i class="fa-brands fa-react fa-3x"></i>
+                <i class="fa-brands fa-react fa-3x me-3 mb-4"></i>
                 {{end}}
                 {{if eq (index .detailCards.Tech 3) "ts" }}
-                <i class="fa-solid fa-scroll fa-3x"></i>
+                <i class="fa-solid fa-scroll fa-3x me-3 mb-4"></i>
                 {{end}}
             </div>
           </div>
         </div>
-        <p class="paragraph">{{.detailCards.Desc}}</p>
+        <h3 class="paragraph">{{.detailCards.Desc}}</h3>
       </div>
       </body>
       </html> 

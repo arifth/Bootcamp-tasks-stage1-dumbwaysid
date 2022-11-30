@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"pengenalan_golang/connection"
 	"strconv"
 	"time"
 
@@ -16,6 +17,7 @@ import (
 // https://github.com/Torao-Law/B42-CH1-ST1---Day-2-Routing
 
 type Card struct {
+	Id           int
 	Project_name string
 	Start_date   string
 	End_date     string
@@ -30,21 +32,23 @@ type Card struct {
 
 var Cards = []Card{
 	{
+		Id:           0,
 		Project_name: "Kursus Golang sampai Botak",
 		Start_date:   "11-10-2022",
 		End_date:     "11-11-2022",
 		Durasi:       "6 Bulan",
-		Desc:         "lorem10",
+		Desc:         "Marilah seluruh rakyat Indonesia Arahkan pandanganmu ke depan Raihlah mimpimu bagi nusa bangsa Satukan tekadmu 'tuk masa depan Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia",
 		Tech:         [4]string{"nodejs", "java", "react", "ts"},
 		Img:          "",
 	},
 	{
+		Id:           1,
 		Project_name: "Kursus Python sampai tipes ",
 		Start_date:   "1-10-2022",
 		End_date:     "1-12-2022",
 		Durasi:       "3 Bulan",
-		Desc:         "lorem10",
-		Tech:         [4]string{"nodejs", "java", "react", "ts"},
+		Desc:         "Well, when you go Don't ever think I'll make you try to stay And maybe when you get back I'll be off to find another way And after all this time that you still owe You're still the good-for-nothing, I don't know So take your gloves and get out Better get out While you can When you go And would you even turn to say I don't love you Like I did Yesterday Sometimes I cry so hard from pleading So sick and tired of all the needless beating But baby when they knock you Down and out It's where you oughta stay And after all the blood that you still owe Another dollar's just another blow So fix your eyes and get up Better get up While you can Whoa, whoa When you go And would you even turn to say I don't love you Like I did Yesterday Well come on, come on When you go Would you have the guts to say I don't love you Like I loved you yesterday I don't love you Like I loved you Yesterday I don't love you Like I loved you Yesterday",
+		Tech:         [4]string{"nodejs", "", "", "ts"},
 		Img:          "",
 	},
 }
@@ -58,6 +62,9 @@ func main() {
 	// "/addProject"
 	// "/contact"
 	//
+
+	// konnek db dlu baru instantiate route dng mux
+	connection.ConnectDB()
 
 	route := mux.NewRouter()
 
@@ -161,6 +168,7 @@ func updatecard(w http.ResponseWriter, r *http.Request) {
 		for i, data := range Cards {
 			if index == i {
 				UpdateData = Card{
+					Id:           index,
 					Project_name: data.Project_name,
 					Start_date:   data.Start_date,
 					End_date:     data.End_date,
@@ -213,8 +221,10 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		java := r.PostForm.Get("java")
 		react := r.PostForm.Get("react")
 		ts := r.PostForm.Get("ts")
+		Id := len(Cards)
 
 		item := Card{
+			Id:           Id,
 			Project_name: project_name,
 			Start_date:   formatDate(start_date),
 			End_date:     formatDate(end_date),
@@ -251,11 +261,9 @@ func detailcard(w http.ResponseWriter, r *http.Request) {
 			// cek apakah id valid atau tidak,still doesnt work -_-
 			if index != id {
 				w.WriteHeader(http.StatusInternalServerError)
-			}
-			// cek apakah index sesuai query di URL
-			if index == id {
-				// masukkan data ke variabel penampung
+			} else {
 				Container = Card{
+					// Id:           index,
 					Project_name: data.Project_name,
 					Start_date:   data.Start_date,
 					End_date:     data.End_date,
@@ -264,6 +272,7 @@ func detailcard(w http.ResponseWriter, r *http.Request) {
 					Tech:         data.Tech,
 					Img:          "",
 				}
+
 			}
 		}
 
@@ -276,7 +285,7 @@ func detailcard(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// ksh tau browser request berhasil
-		w.WriteHeader(http.StatusOK)
+		// w.WriteHeader(http.StatusOK)
 		// eksekusi template
 		template.Execute(w, data)
 
