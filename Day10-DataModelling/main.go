@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"html/template"
 	"log"
@@ -9,49 +10,53 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/k0kubun/pp"
-
 	"github.com/gorilla/mux"
+	"github.com/k0kubun/pp"
 )
 
 // https://github.com/Torao-Law/B42-CH1-ST1---Day-2-Routing
 
 type Card struct {
-	Id           int
-	Project_name string
-	Start_date   string
-	End_date     string
-	Durasi       string
-	Desc         string
+	Id                int
+	Project_name      string
+	Start_date        time.Time
+	End_date          time.Time
+	Start_date_Parsed string
+	End_date_Parsed   string
+	Durasi            string
+	Desc              string
 	// handle checkbox with fix length array , not slices causing error when validating process in template
 	Tech [4]string
 	Img  string
 }
 
 // array dng index id dan isi interface cards
+// Global Variabel Penampung DB
 
-var Cards = []Card{
-	{
-		Id:           0,
-		Project_name: "Kursus Golang sampai Botak",
-		Start_date:   "11-10-2022",
-		End_date:     "11-11-2022",
-		Durasi:       "6 Bulan",
-		Desc:         "Marilah seluruh rakyat Indonesia Arahkan pandanganmu ke depan Raihlah mimpimu bagi nusa bangsa Satukan tekadmu 'tuk masa depan Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia",
-		Tech:         [4]string{"nodejs", "java", "react", "ts"},
-		Img:          "",
-	},
-	{
-		Id:           1,
-		Project_name: "Kursus Python sampai tipes ",
-		Start_date:   "1-10-2022",
-		End_date:     "1-12-2022",
-		Durasi:       "3 Bulan",
-		Desc:         "Well, when you go Don't ever think I'll make you try to stay And maybe when you get back I'll be off to find another way And after all this time that you still owe You're still the good-for-nothing, I don't know So take your gloves and get out Better get out While you can When you go And would you even turn to say I don't love you Like I did Yesterday Sometimes I cry so hard from pleading So sick and tired of all the needless beating But baby when they knock you Down and out It's where you oughta stay And after all the blood that you still owe Another dollar's just another blow So fix your eyes and get up Better get up While you can Whoa, whoa When you go And would you even turn to say I don't love you Like I did Yesterday Well come on, come on When you go Would you have the guts to say I don't love you Like I loved you yesterday I don't love you Like I loved you Yesterday I don't love you Like I loved you Yesterday",
-		Tech:         [4]string{"nodejs", "", "", "ts"},
-		Img:          "",
-	},
-}
+var Cards = []Card{}
+
+// var Cards = []Card{
+// 	{
+// 		Id:           0,
+// 		Project_name: "Kursus Golang sampai Botak",
+// 		Start_date:
+// 		End_date:     "11-11-2022",
+// 		Durasi:       "6 Bulan",
+// 		Desc:         "Marilah seluruh rakyat Indonesia Arahkan pandanganmu ke depan Raihlah mimpimu bagi nusa bangsa Satukan tekadmu 'tuk masa depan Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia",
+// 		Tech:         [4]string{"nodejs", "java", "react", "ts"},
+// 		Img:          "",
+// 	},
+// 	{
+// 		Id:           1,
+// 		Project_name: "Kursus Python sampai tipes ",
+// 		Start_date:   "1-10-2022",
+// 		End_date:     "1-12-2022",
+// 		Durasi:       "3 Bulan",
+// 		Desc:         "Well, when you go Don't ever think I'll make you try to stay And maybe when you get back I'll be off to find another way And after all this time that you still owe You're still the good-for-nothing, I don't know So take your gloves and get out Better get out While you can When you go And would you even turn to say I don't love you Like I did Yesterday Sometimes I cry so hard from pleading So sick and tired of all the needless beating But baby when they knock you Down and out It's where you oughta stay And after all the blood that you still owe Another dollar's just another blow So fix your eyes and get up Better get up While you can Whoa, whoa When you go And would you even turn to say I don't love you Like I did Yesterday Well come on, come on When you go Would you have the guts to say I don't love you Like I loved you yesterday I don't love you Like I loved you Yesterday I don't love you Like I loved you Yesterday",
+// 		Tech:         [4]string{"nodejs", "", "", "ts"},
+// 		Img:          "",
+// 	},
+// }
 
 // RENDER DATA DENGAN AWALAN HURUF KAPITAL
 
@@ -115,11 +120,57 @@ func home(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	response := map[string]interface{}{
-		"Cards": Cards,
+	// query := "SELECT Project_name,Start_date,End_date,Durasi,Desc,Tech,Img FROM tb_courses"
+	query := "SELECT * FROM tb_courses"
+	// query := "SELECT id, Project_name, Start_date, End_date, Durasi, Desc, Tech, Img FROM tb_courses"
+
+	dataCards, err := connection.Conn.Query(context.Background(), query)
+
+	// cek apakah query berhasil
+	if err != nil {
+		fmt.Println("tidak bisa kueri tabel" + err.Error())
+		return
 	}
 
-	pp.Print(response)
+	var queried []Card
+
+	// method return true ,used for loop inside query if there are more than one value
+	for dataCards.Next() {
+
+		var each = Card{}
+
+		err := dataCards.Scan(&each.Id, &each.Project_name, &each.Start_date, &each.End_date, &each.Durasi, &each.Desc, &each.Tech, &each.Img)
+		if err != nil {
+			fmt.Println("Message:" + err.Error())
+		} else {
+			//parse the date from db
+			parsed := Card{
+				Id:           each.Id,
+				Project_name: each.Project_name,
+				// Start_date_Parsed: formatDate(each.Start_date),
+				Durasi: each.Durasi,
+				Desc:   each.Desc,
+				Tech:   each.Tech,
+				Img:    each.Img,
+			}
+
+			// pp.Println(parsed)
+			queried = append(queried, parsed)
+
+		}
+
+		// pp.Println(queried)
+		// queried = append(queried, each)
+	}
+	Cards = append(Cards, queried...)
+
+	pp.Println(Cards)
+
+	response := map[string]interface{}{
+		"Cards": queried,
+	}
+
+	// pp.Print(response)
 
 	// fmt.Println(response)
 
@@ -141,6 +192,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func addProject(w http.ResponseWriter, r *http.Request) {
+	// parse file template from html
 	tmpt, _ := template.ParseFiles("public/projectform.html")
 	w.Header().Set("Content-type:", "text/html")
 
@@ -216,29 +268,47 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		start_date := r.FormValue("start-date")
 		end_date := r.FormValue("end-date")
 		desc := r.FormValue("desc")
-		img := r.FormValue("img")
-		nodejs := r.PostForm.Get("nodejs")
-		java := r.PostForm.Get("java")
-		react := r.PostForm.Get("react")
-		ts := r.PostForm.Get("ts")
-		Id := len(Cards)
+		// img := r.FormValue("img")
+		duration := getDuration(start_date, end_date)
+		// nodejs := r.PostForm.Get("nodejs")
+		// java := r.PostForm.Get("java")
+		// react := r.PostForm.Get("react")
+		// ts := r.PostForm.Get("ts")
+		// Tech := [4]string{nodejs, java, react, ts}
+		Tech := "{'nodejs', 'java', 'react', 'ts'}"
 
-		item := Card{
-			Id:           Id,
-			Project_name: project_name,
-			Start_date:   formatDate(start_date),
-			End_date:     formatDate(end_date),
-			Durasi:       getDuration(start_date, end_date),
-			Desc:         desc,
-			Img:          img,
-			Tech:         [4]string{nodejs, java, react, ts},
+		// queri insert into postgress cuy
+		_, err = connection.Conn.Exec(context.Background(),
+			`INSERT INTO tb_courses VALUES( $1, $2, $3, $4, $5, $6, $7)`,
+			project_name, start_date, end_date, duration, desc, Tech, "test gambar",
+		)
+
+		if err != nil {
+			fmt.Println("tidak bisa kueri tabel" + err.Error())
+			return
+
 		}
+		// _, err = connection.Conn.Exec(context.Background(),
+		//  `INSERT INTO public.tb_project()
+		// 	VALUES ( $1, $2, $3, $4, $5, $6)`, ProjectName, ProjectStartDate, ProjectEndDate, ProjectDescription, ProjectTechnologies, ProjectImage)
+		// // ERROR HANDLING INSERT PROJECT TO POSTGRESQL
 
-		fmt.Print(item.Tech)
-		Cards = append(Cards, item)
+		// item := Card{
+		// 	Id:           Id,
+		// 	Project_name: project_name,
+		// 	// Start_date:   formatDate(start_date),
+		// 	// End_date:     formatDate(end_date),
+		// 	Durasi: getDuration(start_date, end_date),
+		// 	Desc:   desc,
+		// 	Img:    img,
+		// 	Tech:   [4]string{nodejs, java, react, ts},
+		// }
+
+		// fmt.Print(item.Tech)
+		// Cards = append(Cards, item)
 
 		// fmt.Print(len(Cards))
-		http.Redirect(w, r, "/", http.StatusMovedPermanently)
+		// http.Redirect(w, r, "/", http.StatusMovedPermanently)
 
 	}
 }
@@ -314,10 +384,26 @@ func getDuration(start_date string, end_date string) string {
 
 }
 
-func formatDate(date string) string {
-	layout := "2006-01-02"
-	t, _ := time.Parse(layout, date)
+// func formatDate(date string) string {
+// 	layout := "2006-01-02"
+// 	t, _ := time.Parse(layout, date)
 
-	hasil := t.Format("02 January 2006")
-	return hasil
+// 	hasil := t.Format("02 January 2006")
+// 	return hasil
+// }
+
+// format date type to golang
+func ParseDate(InputDate time.Time) string {
+
+	Formated := InputDate.Format("02 January 2006")
+
+	return Formated
+}
+
+// format date to potgres
+func ReturnDate(InputDate time.Time) string {
+
+	Formated := InputDate.Format("2006-01-02")
+
+	return Formated
 }
