@@ -162,7 +162,7 @@ func home(res http.ResponseWriter, req *http.Request) {
 		// pp.Println(queried)
 		// queried = append(queried, each)
 	}
-	Cards = append(Cards, queried...)
+	// Cards = append(Cards, queried...)
 
 	pp.Println(Cards)
 
@@ -275,14 +275,12 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		// react := r.PostForm.Get("react")
 		// ts := r.PostForm.Get("ts")
 		// Tech := [4]string{nodejs, java, react, ts}
-		Tech := "{'nodejs', 'java', 'react', 'ts'}"
+		// Tech := "{'nodejs', 'java', 'react', 'ts'}"
 
-		query :=
+		query := `INSERT INTO public.tb_courses("Project_name", "Durasi", "Desc" )VALUES ($1, $2, $3)`
 
 		// queri insert into postgress cuy
-		_, err = connection.Conn.Exec(context.Background(),
-			
-		)
+		_, err = connection.Conn.Exec(context.Background(), query, project_name, desc, duration)
 
 		if err != nil {
 			fmt.Println("tidak bisa kueri tabel" + err.Error())
@@ -309,7 +307,7 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		// Cards = append(Cards, item)
 
 		// fmt.Print(len(Cards))
-		// http.Redirect(w, r, "/", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/", http.StatusMovedPermanently)
 
 	}
 }
