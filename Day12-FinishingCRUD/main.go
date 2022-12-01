@@ -280,15 +280,15 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		query :=
 
 		// queri insert into postgress cuy
-		// _, err = connection.Conn.Exec(context.Background(),
+		_, err = connection.Conn.Exec(context.Background(),
 			
-		// )
+		)
 
-		// if err != nil {
-		// 	fmt.Println("tidak bisa kueri tabel" + err.Error())
-		// 	return
+		if err != nil {
+			fmt.Println("tidak bisa kueri tabel" + err.Error())
+			return
 
-		// }
+		}
 		// _, err = connection.Conn.Exec(context.Background(),
 		//  `INSERT INTO public.tb_project()
 		// 	VALUES ( $1, $2, $3, $4, $5, $6)`, ProjectName, ProjectStartDate, ProjectEndDate, ProjectDescription, ProjectTechnologies, ProjectImage)
@@ -311,7 +311,7 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		// fmt.Print(len(Cards))
 		// http.Redirect(w, r, "/", http.StatusMovedPermanently)
 
-	// }
+	}
 }
 
 func detailcard(w http.ResponseWriter, r *http.Request) {
