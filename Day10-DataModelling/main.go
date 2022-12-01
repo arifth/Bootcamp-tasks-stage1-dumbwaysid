@@ -277,10 +277,11 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 		// Tech := [4]string{nodejs, java, react, ts}
 		Tech := "{'nodejs', 'java', 'react', 'ts'}"
 
+		query :=
+
 		// queri insert into postgress cuy
 		_, err = connection.Conn.Exec(context.Background(),
-			`INSERT INTO tb_courses VALUES( $1, $2, $3, $4, $5, $6, $7)`,
-			project_name, start_date, end_date, duration, desc, Tech, "test gambar",
+			
 		)
 
 		if err != nil {
