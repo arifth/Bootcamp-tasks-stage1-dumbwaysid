@@ -44,26 +44,26 @@
     <h1 class="text-center">Update existing Course</h1>
     <form action="/sendform" method="POST" class="form-1" enctype="multipart/form-data">
       <label for="" >Project Name</label>
-      <input type="text" name="name" id="name" class="form-style" required value="{{.updateCard.Project_name}}">
+      <input type="text" name="name" id="name" class="form-style" required value="{{.updateData.Project_name}}">
       <div class="date-wrapper">
         <div style="display:flex;flex-direction:column" class="date">
          <label for="">Start Date</label>
-         <input type="date" name="start-date" class="input-date form-style" id="startdate" placeholder="Start Date" value="{{.updateCard.Start_date}}" required>
+         <input type="date" name="start-date" class="input-date form-style" id="startdate" placeholder="Start Date" value="{{.updateData.Start_date}}" required>
         </div>
         <div style="display:flex;flex-direction:column" class="date">
           <label for="">End Date</label>
-          <input type="date" name="end-date" class="input-date form-style" id="enddate" required>
+          <input type="date" name="end-date" class="input-date form-style" id="enddate" value="{{.updateData.End_date}}" required>
       </div>
         </div>
       <label for="">Description</label>
       <textarea class="desc" id="desc" cols="30" rows="10" style="resize: none"
-      name="desc" >{{.updateCard.Desc}}</textarea>
+      name="desc" >{{.updateData.Desc}}</textarea>
       <label for="">Technologies</label>
       <div class="cb-wrapper">
         <div class="cb-inside">
           
           <input type="checkbox" id="nodejs" name="nodejs"
-          {{range $index,$data:=.updateCard.Tech}} 
+          {{range $index,$data:=.updateData.Tech}} 
           {{if (eq $data "nodejs")}} checked
           {{end}}{{end}}
           value="nodejs">
@@ -71,7 +71,7 @@
         </div>
         <div class="cb-inside">
           <input type="checkbox" id="java" name="java"
-          {{range $index,$data:=.updateCard.Tech}} 
+          {{range $index,$data:=.updateData.Tech}} 
           {{if (eq $data "java")}} checked
           {{end}}{{end}}
           value="java">
@@ -79,7 +79,7 @@
         </div>
         <div class="cb-inside">
           <input type="checkbox" id="react" name="react" 
-          {{range $index,$data:=.updateCard.Tech}} 
+          {{range $index,$data:=.updateData.Tech}} 
           {{if (eq $data "react")}} checked
           {{end}}{{end}}
           value="react">
@@ -87,7 +87,7 @@
         </div>
         <div class="cb-inside">
           <input type="checkbox" id="ts" name="ts" 
-          {{range $index,$data:=.updateCard.Tech}} 
+          {{range $index,$data:=.updateData.Tech}} 
           {{if (eq $data "ts")}} checked
           {{end}}{{end}}
           value="">

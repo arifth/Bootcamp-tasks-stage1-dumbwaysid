@@ -35,29 +35,6 @@ type Card struct {
 
 var Cards = []Card{}
 
-// var Cards = []Card{
-// 	{
-// 		Id:           0,
-// 		Project_name: "Kursus Golang sampai Botak",
-// 		Start_date:
-// 		End_date:     "11-11-2022",
-// 		Durasi:       "6 Bulan",
-// 		Desc:         "Marilah seluruh rakyat Indonesia Arahkan pandanganmu ke depan Raihlah mimpimu bagi nusa bangsa Satukan tekadmu 'tuk masa depan Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia Pantang menyerah Itulah pedomanmu Entaskan kemiskinan cita-citamu Rintangan 'tak menggentarkan dirimu Indonesia maju, sejahtera tujuanmu Nyalakan api semangat perjuangan Dengungkan gema, nyatakan persatuan Oleh Perindo Oleh Perindo Jayalah indonesia",
-// 		Tech:         [4]string{"nodejs", "java", "react", "ts"},
-// 		Img:          "",
-// 	},
-// 	{
-// 		Id:           1,
-// 		Project_name: "Kursus Python sampai tipes ",
-// 		Start_date:   "1-10-2022",
-// 		End_date:     "1-12-2022",
-// 		Durasi:       "3 Bulan",
-// 		Desc:         "Well, when you go Don't ever think I'll make you try to stay And maybe when you get back I'll be off to find another way And after all this time that you still owe You're still the good-for-nothing, I don't know So take your gloves and get out Better get out While you can When you go And would you even turn to say I don't love you Like I did Yesterday Sometimes I cry so hard from pleading So sick and tired of all the needless beating But baby when they knock you Down and out It's where you oughta stay And after all the blood that you still owe Another dollar's just another blow So fix your eyes and get up Better get up While you can Whoa, whoa When you go And would you even turn to say I don't love you Like I did Yesterday Well come on, come on When you go Would you have the guts to say I don't love you Like I loved you yesterday I don't love you Like I loved you Yesterday I don't love you Like I loved you Yesterday",
-// 		Tech:         [4]string{"nodejs", "", "", "ts"},
-// 		Img:          "",
-// 	},
-// }
-
 // RENDER DATA DENGAN AWALAN HURUF KAPITAL
 
 func main() {
@@ -90,10 +67,13 @@ func main() {
 
 	// add Course
 	route.HandleFunc("/addproject", addProject).Methods("GET")
-	// update Course
-	route.HandleFunc("/updatecard/{id}", updatecard).Methods("GET")
+	// send to form
+	// route.HandleFunc("/updatecard/{id}", updatecard).Methods("GET")
 	// Delete Course
 	route.HandleFunc("/deletecard/{id}", deletecard).Methods("GET")
+
+	// api handle to update card
+	route.HandleFunc("/updating/{id}", updating).Methods("GET")
 
 	// api handle form value & redirect to /
 	route.HandleFunc("/sendform", sendform).Methods("POST")
@@ -147,11 +127,10 @@ func home(res http.ResponseWriter, req *http.Request) {
 			parsed := Card{
 				Id:           each.Id,
 				Project_name: each.Project_name,
-				// Start_date_Parsed: formatDate(each.Start_date),
-				Durasi: each.Durasi,
-				Desc:   each.Desc,
-				Tech:   each.Tech,
-				Img:    each.Img,
+				Durasi:       each.Durasi,
+				Desc:         each.Desc,
+				Tech:         each.Tech,
+				Img:          each.Img,
 			}
 
 			// pp.Println(parsed)
@@ -164,7 +143,7 @@ func home(res http.ResponseWriter, req *http.Request) {
 	}
 	// Cards = append(Cards, queried...)
 
-	pp.Println(Cards)
+	// pp.Println(queried)
 
 	response := map[string]interface{}{
 		"Cards": queried,
@@ -204,54 +183,59 @@ func addProject(w http.ResponseWriter, r *http.Request) {
 	tmpt.Execute(w, nil)
 
 }
+func updating(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-func updatecard(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Hallo from updatecard")
 	tmpl, err := template.ParseFiles("public/updatecard.html")
+	// ERROR HANDLING RENDER HTML TEMPLATE
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("message : " + err.Error()))
 		return
 	} else {
-		var UpdateData = Card{}
-		// parse and assign index query url to variable
-		index, _ := strconv.Atoi(mux.Vars(r)["index"])
+		ID, _ := strconv.Atoi(mux.Vars(r)["id"])
+		updateData := Card{}
+		// GET PROJECT BY ID FROM POSTGRESQL
+		err = connection.Conn.QueryRow(context.Background(), `SELECT * FROM public.tb_courses WHERE "id" = $1`, ID).Scan(&updateData.Id, &updateData.Project_name, &updateData.Start_date, &updateData.End_date, &updateData.Durasi, &updateData.Desc, &updateData.Tech, &updateData.Img)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("message : " + err.Error()))
+			return
+		}
 
-		for i, data := range Cards {
-			if index == i {
-				UpdateData = Card{
-					Id:           index,
-					Project_name: data.Project_name,
-					Start_date:   data.Start_date,
-					End_date:     data.End_date,
-					Durasi:       data.Durasi,
-					Desc:         data.Desc,
-					Tech:         data.Tech,
-					Img:          "",
-				}
-				// notice this, still unresolve
-				Cards = append(Cards[:index], Cards[index+1:]...)
-			}
+		updateData = Card{
+			Id:                updateData.Id,
+			Project_name:      updateData.Project_name,
+			Start_date_Parsed: ReturnDate(updateData.Start_date),
+			End_date_Parsed:   ReturnDate(updateData.End_date),
+			Desc:              updateData.Desc,
+			Tech:              updateData.Tech,
+			Img:               updateData.Img,
 		}
-		data := map[string]interface{}{
-			"updateCard": UpdateData,
+
+		response := map[string]interface{}{
+			"updateData": updateData,
 		}
+
 		w.WriteHeader(http.StatusOK)
-		tmpl.Execute(w, data)
+		tmpl.Execute(w, response)
 	}
 
 }
 
 func deletecard(w http.ResponseWriter, r *http.Request) {
-	index, _ := strconv.Atoi(mux.Vars(r)["index"])
+	Id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	// pp.Println("test 1")
 
-	// ProjectList = append(ProjectList[:index], ProjectList[index+1:]...)
-	Cards = append(Cards[:index], Cards[index+1:]...)
-
-	fmt.Println(Cards)
-
+	// DELETE PROJECT BY ID AT POSTGRESQL
+	_, err := connection.Conn.Exec(context.Background(), `DELETE FROM public.tb_courses WHERE "id" = $1`, Id)
+	// ERROR HANDLING DELETE PROJECT AT POSTGRESQL
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("message : " + err.Error()))
+		return
+	}
 	http.Redirect(w, r, "/", http.StatusFound)
-
 }
 
 func sendform(w http.ResponseWriter, r *http.Request) {
@@ -266,21 +250,23 @@ func sendform(w http.ResponseWriter, r *http.Request) {
 	} else {
 		project_name := r.FormValue("name")
 		start_date := r.FormValue("start-date")
+		start_date_prs, _ := time.Parse("2006-01-02", r.FormValue("start-date"))
+		end_date_prs, _ := time.Parse("2006-01-02", r.FormValue("end-date"))
 		end_date := r.FormValue("end-date")
 		desc := r.FormValue("desc")
 		// img := r.FormValue("img")
 		duration := getDuration(start_date, end_date)
-		// nodejs := r.PostForm.Get("nodejs")
-		// java := r.PostForm.Get("java")
-		// react := r.PostForm.Get("react")
-		// ts := r.PostForm.Get("ts")
-		// Tech := [4]string{nodejs, java, react, ts}
-		// Tech := "{'nodejs', 'java', 'react', 'ts'}"
+		nodejs := r.PostForm.Get("nodejs")
+		java := r.PostForm.Get("java")
+		react := r.PostForm.Get("react")
+		ts := r.PostForm.Get("ts")
+		Tech := [4]string{nodejs, java, react, ts}
+		// Img := "test.png"
 
-		query := `INSERT INTO public.tb_courses("Project_name", "Durasi", "Desc" )VALUES ($1, $2, $3)`
+		query := `INSERT INTO public.tb_courses("Project_name", "Start_date","End_date", "Durasi", "Desc", "Tech" ,"Img" )VALUES ($1, $2, $3, $4, $5, $6, $7)`
 
 		// queri insert into postgress cuy
-		_, err = connection.Conn.Exec(context.Background(), query, project_name, desc, duration)
+		_, err = connection.Conn.Exec(context.Background(), query, project_name, start_date_prs, end_date_prs, duration, desc, Tech, "test.png")
 
 		if err != nil {
 			fmt.Println("tidak bisa kueri tabel" + err.Error())
@@ -321,44 +307,36 @@ func detailcard(w http.ResponseWriter, r *http.Request) {
 		// return kosong spy tidak eksekusi baris kode dibawahnya
 		return
 	} else {
-		// variable buat nampung isi detail cards
-		var Container = Card{}
-		// variable index parse id query ke string
-		index, _ := strconv.Atoi(mux.Vars(r)["id"])
-
-		for id, data := range Cards {
-			// cek apakah id valid atau tidak,still doesnt work -_-
-			if index != id {
-				w.WriteHeader(http.StatusInternalServerError)
-			} else {
-				Container = Card{
-					// Id:           index,
-					Project_name: data.Project_name,
-					Start_date:   data.Start_date,
-					End_date:     data.End_date,
-					Durasi:       data.Durasi,
-					Desc:         data.Desc,
-					Tech:         data.Tech,
-					Img:          "",
-				}
-
-			}
+		ID, _ := strconv.Atoi(mux.Vars(r)["id"])
+		updateData := Card{}
+		// GET PROJECT BY ID FROM POSTGRESQL
+		err = connection.Conn.QueryRow(context.Background(), `SELECT * FROM public.tb_courses WHERE "id" = $1`, ID).Scan(&updateData.Id, &updateData.Project_name, &updateData.Start_date, &updateData.End_date, &updateData.Durasi, &updateData.Desc, &updateData.Tech, &updateData.Img)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("message : " + err.Error()))
+			return
 		}
 
-		fmt.Println(Container.Tech)
-
-		// buat variable map dengan key string interface kosong utk data passing ke template
-
-		data := map[string]interface{}{
-			"detailCards": Container,
+		updateData = Card{
+			Id:                updateData.Id,
+			Project_name:      updateData.Project_name,
+			Start_date_Parsed: ReturnDate(updateData.Start_date),
+			End_date_Parsed:   ReturnDate(updateData.End_date),
+			Durasi:            updateData.Durasi,
+			Desc:              updateData.Desc,
+			Tech:              updateData.Tech,
+			Img:               updateData.Img,
 		}
 
-		// ksh tau browser request berhasil
-		// w.WriteHeader(http.StatusOK)
-		// eksekusi template
-		template.Execute(w, data)
+		pp.Println(updateData)
 
-		// fmt.Println(id)
+		response := map[string]interface{}{
+			"updateData": updateData,
+		}
+
+		w.WriteHeader(http.StatusOK)
+		template.Execute(w, response)
+
 	}
 
 }
@@ -382,14 +360,6 @@ func getDuration(start_date string, end_date string) string {
 	return durasi
 
 }
-
-// func formatDate(date string) string {
-// 	layout := "2006-01-02"
-// 	t, _ := time.Parse(layout, date)
-
-// 	hasil := t.Format("02 January 2006")
-// 	return hasil
-// }
 
 // format date type to golang
 func ParseDate(InputDate time.Time) string {

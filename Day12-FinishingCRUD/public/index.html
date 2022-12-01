@@ -117,20 +117,20 @@
     <!-- end of card section   -->
 
     <!-- start of my projects section -->
-    <div style="width: 100vw;height: 100vh;background-color: #f8f8f8;" class="d-flex flex-column justifiy-content-center ">
+    <div style="width: 100vw;height: 100vh;background-color: #f8f8f8;overflow-x: scroll;" class="d-flex flex-wrap flex-column justifiy-content-center ">
       <div class="header-cont mx-auto mt-5 mb-5">
         <h1>My Projects</h1>
       </div>
       
         <!-- start of dynamic card section -->
 
-        <div class="cards-container" style="display:flex ;">
+        <div class="cards-container"  style="display:flex ;">
         
         {{range $index, $data := .Cards }}
         <div class="cards mx-3 me-5" style="width: 400px;height: 550px;">
           <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80" class="card-img-top" alt="...">
           <div class="card-body">
-            <h3 class="card-title" style="text-overflow: ellipsis;margin-bottom: 10px;"><a href="/detailcard/{{$index}}">{{$data.Project_name}}</a></h3>
+            <h3 class="card-title" style="text-overflow: ellipsis;margin-bottom: 10px;"><a href="/detailcard/{{$data.Id}}">{{$data.Project_name}}</a></h3>
             <p class="card-text" style="text-overflow: ellipsis;">{{$data.Durasi}}</p>
             <div class="icon-container d-flex flex-row align-items-center justifiy-content-center" style="gap:1em;margin: 1em;">
               {{if eq (index $data.Tech 0) "nodejs"}}
@@ -147,8 +147,8 @@
               {{end}}
           </div>
             <div class="btn-cont " style="display: flex;gap:1rem;justify-content:center;align-item:center;overflow: hidden;">
-            <a href="/updatecard/{{$index}}" class="btn btn-card" style="background-color: aliceblue;color: rgb(85, 58, 58);border: none;">edit</a>
-            <a href="/deletecard/{{$index}}" class="btn btn-card" style="background-color: rgb(255, 19, 19);color: rgb(255, 255, 255);border: .5px solid rgb(85, 58, 58, 0.5);">delete</a>
+            <a href="/updating/{{$data.Id}}" class="btn btn-card" style="background-color: aliceblue;color: rgb(85, 58, 58);border: none;">edit</a>
+            <a href="/deletecard/{{$data.Id}}" class="btn btn-card" style="background-color: rgb(255, 19, 19);color: rgb(255, 255, 255);border: .5px solid rgb(85, 58, 58, 0.5);">delete</a>
           </div>
           </div>
         </div>
